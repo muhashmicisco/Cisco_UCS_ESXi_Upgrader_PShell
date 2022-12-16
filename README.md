@@ -3,7 +3,7 @@
 Filename: Cisco_UCS_ESXi_Upgrader<br>
 Author: Mustafa Hashmi<br>
 Limitation of Liability: <br>
-You arefully responsible for your use of this script AND I am not liable for damages or losses arising from its use.<br>
+You are fully responsible for your use of this script AND I am not liable for damages or losses arising from its use.<br>
 <br>
 PowerCLI First Time Setup (Install):<br>
 Install-Module VMware.PowerCLI -Scope CurrentUser -AllowClobber<br>
