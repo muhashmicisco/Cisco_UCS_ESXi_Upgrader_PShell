@@ -54,17 +54,19 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 Write-Host "Starting timer..."
                 Start-Sleep 60
                 Write-Host "If you see errors you may need to turn OFF VMs manually using the ESXi UI."
+                
                 Write-Host "Turning on Maintance Mode."
                 $poweredonvmcount = (get-vm | where {$_.powerstate -eq 'PoweredOn'}).count
                 if($poweredonvmcount -eq 0) {
                     set-vmhost -state Maintenance
                     Start-Sleep 5
-                }        
+                    }        
                 else {
                     Write-Host "Maintance Mode failed to activate automatically. Do not continue until you turn it ON manually via UI."
                     Write-Host "Abort using CTRL-C or"
                     pause
                     }
+                    
                 Write-Host "Executing ESXCli command for Upgrade using Cisco Profile, removing old pkgs, ignoring hardware warning"
                 $esxcli = Get-EsxCli -V2
                 $arguments = $esxcli.software.profile.install.CreateArgs()
