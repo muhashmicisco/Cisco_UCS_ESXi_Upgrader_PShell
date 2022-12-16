@@ -42,10 +42,12 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 $IP = $_.IPAddress
                 $Username = $_.User
                 $Pswd = $_.Password
-                 
+                
+                # Connect to Host
                 Write-Host "Connecting to ESXi Host:"$IP "using credentials from CSV file."
                 Connect-VIServer -Server $IP -Protocol https -User $Username -Password $Pswd
-
+              
+                #Shutdown VMs
                 Write-Host "Shutting down VMs Gracefully (VMTools) OR PoweringOff and waiting 60s."
                 Write-Host "Increase wait timer in script if you have a lot of VMs to Shutdown."
                 $vm = Get-VM
@@ -55,6 +57,7 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 Start-Sleep 60
                 Write-Host "If you see errors you may need to turn OFF VMs manually using the ESXi UI."
                 
+                #Turn on Maint. Mode
                 Write-Host "Turning on Maintance Mode."
                 $poweredonvmcount = (get-vm | where {$_.powerstate -eq 'PoweredOn'}).count
                 if($poweredonvmcount -eq 0) {
@@ -66,7 +69,8 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                     Write-Host "Abort using CTRL-C or"
                     pause
                     }
-                    
+                
+                #Run Upggrade Command
                 Write-Host "Executing ESXCli command for Upgrade using Cisco Profile, removing old pkgs, ignoring hardware warning"
                 $esxcli = Get-EsxCli -V2
                 $arguments = $esxcli.software.profile.install.CreateArgs()
@@ -75,7 +79,8 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 $arguments.profile = "Cisco-UCS-Addon-ESXi-70U3d-19482537_4.2.2-a"
                 $arguments.oktoremove = $true
                 $esxcli.software.profile.install.Invoke($arguments)
-
+                
+                #Reboot, disconnect session and move on to next Host
                 Write-Host "Restarting Host and Ending PowerCli Session to current host"
                 Restart-VMHost -Confirm:$false | Disconnect-VIServer -Confirm:$false
                 Write-Host "If upgrade failed ABORT using CTRL-C or if you are ready to move on to next host"
