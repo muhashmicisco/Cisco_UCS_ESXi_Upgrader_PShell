@@ -1,7 +1,7 @@
 Filename: Cisco_UCS_ESXi_Upgrader_1.0.ps1<br>
 Author: Mustafa Hashmi<br>
 Limitation of Liability: <br>
-You arefully responsible for your use of this script AND am not liable for damages or losses arising from its use.<br>
+You arefully responsible for your use of this script AND I am not liable for damages or losses arising from its use.<br>
 <br>
 Offline Cisco Custom ESXi Upgrade PowerCLI Script for UCS Automation (no vCenter OR Internet)<br>
 <br>
