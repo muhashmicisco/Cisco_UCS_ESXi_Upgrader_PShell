@@ -1,9 +1,9 @@
-Filename: Cisco_UCS_ESXi_Upgrader_1.0.ps1<br>
+<b>Offline Cisco Custom ESXi Upgrade PowerCLI Script for UCS Automation (no vCenter OR Internet)<br></b>
+<br>
+Filename: Cisco_UCS_ESXi_Upgrader<br>
 Author: Mustafa Hashmi<br>
 Limitation of Liability: <br>
 You arefully responsible for your use of this script AND I am not liable for damages or losses arising from its use.<br>
-<br>
-Offline Cisco Custom ESXi Upgrade PowerCLI Script for UCS Automation (no vCenter OR Internet)<br>
 <br>
 PowerCLI First Time Setup (Install):<br>
 Install-Module VMware.PowerCLI -Scope CurrentUser -AllowClobber<br>
