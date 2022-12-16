@@ -4,8 +4,6 @@ Author: Mustafa Hashmi<br>
 Limitation of Liability: <br>
 You are fully responsible for your use of this script AND am not liable for damages or losses arising from its use.<br>
 <br>
-Offline Cisco Custom ESXi Upgrade PowerCLI Script for UCS Automation (no vCenter OR Internet)<br>
-<br>
 PowerCLI First Time Setup (Install):<br>
 Install-Module VMware.PowerCLI -Scope CurrentUser -AllowClobber<br>
 Set-PowerCLIConfiguration -Scope User -ParticipateInCEIP $true<br>
