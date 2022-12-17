@@ -74,7 +74,7 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 Write-Host "Executing ESXCli command for Upgrade using Cisco Profile, removing old pkgs, ignoring hardware warning"
                 $esxcli = Get-EsxCli -V2
                 $arguments = $esxcli.software.profile.install.CreateArgs()
-                $arguments.depot = "/vmfs/volumes/RCDN_ISO_Datastore/VMWare/VMware-ESXi-7.0.3d-19482537-Custom-Cisco-4.2.2-a-depot.zip"
+                $arguments.depot = "/vmfs/volumes/Common_Datastore/VMWare/VMware-ESXi-7.0.3d-19482537-Custom-Cisco-4.2.2-a-depot.zip"
                 $arguments.nohardwarewarning = $true
                 $arguments.profile = "Cisco-UCS-Addon-ESXi-70U3d-19482537_4.2.2-a"
                 $arguments.oktoremove = $true
