@@ -21,7 +21,7 @@ vSphere 7.0U3: https://customerconnect.vmware.com/en/downloads/details?downloadG
 <br>
 Important Step: Upload .zip to a common DataStore accessible by all hosts OR map a local folder (using NFS) <br>
 as a datastore using PowerCLI after connecting to the host (can be added to the script above the esxcli section):<br>
-New-Datastore -Nfs -Name nfs01 -Path /nfs01 -NfsHost <IP of PC running NFS><br>
+New-Datastore -Nfs -Name nfs01 -Path /nfs01 -NfsHost [IP of PC running NFS]<br>
 <br>
 PLEASE NOTE:<br>
 INCREASE THE START-SLEEP TIMER (60s DEFAULT) IF YOU HAVE MANY VMs TO TURN OFF, OTHERWISE MAINT. MODE WILL NOT TURN ON.<br>
