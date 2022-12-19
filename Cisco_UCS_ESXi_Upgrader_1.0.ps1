@@ -79,7 +79,7 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 # Reboot, disconnect session and move on to next Host
                 Write-Host "Restarting Host, Clearing PowerCli Session."
                 Restart-VMHost -Confirm:$false | Disconnect-VIServer -Confirm:$false
-                Write-Host "If the upgrade failed ABORT using CTRL-C, or if you are ready to continue with next host"
+                Write-Host "If the upgrade failed ABORT using CTRL-C, or if you are ready to move on to next host"
                 pause
                 $HostCount++
                 
