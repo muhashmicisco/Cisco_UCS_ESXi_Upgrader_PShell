@@ -35,8 +35,9 @@ Good Luck!
 
 #Start of Script
 clear
-$HostCount = 0
+
 #Get Host Credentials
+$HostCount = 0
 $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
 
                 $IP = $_.IPAddress
@@ -48,6 +49,7 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 Connect-VIServer -Server $IP -Protocol https -User $Username -Password $Pswd
               
                 # Shutdown VMs
+                $poweredonvmcount = 0
                 $poweredonvmcount = (get-vm | where {$_.powerstate -eq 'PoweredOn'}).count
                 Write-Host "Shutting down"$poweredonvmcount" VMs, waiting 30s."
                 $vm = Get-VM
