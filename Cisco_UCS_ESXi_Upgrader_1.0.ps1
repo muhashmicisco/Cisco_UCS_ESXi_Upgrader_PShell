@@ -44,19 +44,16 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 $Pswd = $_.Password
                 
                 # Connect to Host
-                Write-Host "Connecting to ESXi Host:"$IP "using credentials from CSV file."
+                Write-Host "Connecting to ESXi Host:"$IP
                 Connect-VIServer -Server $IP -Protocol https -User $Username -Password $Pswd
               
                 # Shutdown VMs
-                Write-Host "Shutting down VMs Gracefully (VMTools) OR PoweringOff and waiting 60s."
-                Write-Host "Increase wait timer in script if you have a lot of VMs to Shutdown."
+                Write-Host "Shutting down VMs, waiting 60s."
                 $vm = Get-VM
                 $vm | Where {($_.Guest.State -eq "Running") -AND ($_.powerstate -eq ‘PoweredOn’)} | Shutdown-VMGuest -Confirm:$false
                 $vm | Where {($_.Guest.State -eq "NotRunning") -AND ($_.powerstate -eq ‘PoweredOn’)} | Stop-VM -Confirm:$false 
-                Write-Host "Starting timer..."
                 Start-Sleep 60
-                Write-Host "If you see errors you may need to turn OFF VMs manually using the ESXi UI."
-                
+                                
                 # Turn on Maint. Mode
                 Write-Host "Turning on Maintance Mode."
                 $poweredonvmcount = (get-vm | where {$_.powerstate -eq 'PoweredOn'}).count
@@ -65,13 +62,12 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                     Start-Sleep 5
                     }        
                 else {
-                    Write-Host "Maintance Mode failed to activate automatically. Do not continue until you turn it ON manually via UI."
-                    Write-Host "Abort using CTRL-C or"
+                    Write-Host "Error! Maintance Mode failed to activate. Turn ON manually via UI and only then"
                     pause
                     }
                 
                 # Run Upggrade Command
-                Write-Host "Executing ESXCli command for Upgrade using Cisco Profile, removing old pkgs, ignoring hardware warning"
+                Write-Host "ESXi upgrade in progress...please wait."
                 $esxcli = Get-EsxCli -V2
                 $arguments = $esxcli.software.profile.install.CreateArgs()
                 $arguments.depot = "/vmfs/volumes/Common_Datastore/VMWare/VMware-ESXi-7.0.3d-19482537-Custom-Cisco-4.2.2-a-depot.zip"
@@ -81,9 +77,9 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 $esxcli.software.profile.install.Invoke($arguments)
                 
                 # Reboot, disconnect session and move on to next Host
-                Write-Host "Restarting Host and Ending PowerCli Session to current host"
+                Write-Host "Restarting Host, closing PowerCli Session"
                 Restart-VMHost -Confirm:$false | Disconnect-VIServer -Confirm:$false
-                Write-Host "If upgrade failed ABORT using CTRL-C or if you are ready to move on to next host"
+                Write-Host "If the upgrade failed ABORT using CTRL-C, or if you are ready to continue with next host"
                 pause
 
     }
