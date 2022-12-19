@@ -82,6 +82,7 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 Write-Host "If the upgrade failed ABORT using CTRL-C, or if you are ready to continue with next host"
                 pause
                 $HostCount++
+                
     }  Out-File log.txt -Append
 
 Write-Host ""
