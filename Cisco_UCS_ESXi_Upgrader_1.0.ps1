@@ -35,7 +35,7 @@ Good Luck!
 
 #Start of Script
 clear
-
+$HostCount = 0
 #Get Host Credentials
 $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
 
@@ -62,7 +62,7 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                     Start-Sleep 5
                     }        
                 else {
-                    Write-Host "Error!"$poweredonvmcount" VMs are still Powered On. Maintance Mode failed to activate. Turn ON manually via UI and only then"
+                    Write-Host "Error!"$poweredonvmcount" VMs are still Powered On. Turn ON Maintance Mode manually via UI and only then"
                     pause
                     }
                 
@@ -77,11 +77,15 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 $esxcli.software.profile.install.Invoke($arguments)
                 
                 # Reboot, disconnect session and move on to next Host
-                Write-Host "Restarting Host, closing PowerCli Session"
+                Write-Host "Restarting Host, Clearing PowerCli Session."
                 Restart-VMHost -Confirm:$false | Disconnect-VIServer -Confirm:$false
                 Write-Host "If the upgrade failed ABORT using CTRL-C, or if you are ready to continue with next host"
                 pause
-
+                $HostCount++
     }  Out-File log.txt -Append
+
+Write-Host ""
+Write-Host $HostCount" Hosts Upgraded Successfully. Terminating Script."
+$HostCount = 0
 
 #End of Script
