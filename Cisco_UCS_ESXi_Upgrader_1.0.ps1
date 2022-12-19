@@ -77,7 +77,7 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 $esxcli.software.profile.install.Invoke($arguments)
                 
                 # Reboot, disconnect session and move on to next Host
-                Write-Host "Restarting Host, Clearing PowerCli Session."
+                Write-Host "Restarting Host."
                 Restart-VMHost -Confirm:$false | Disconnect-VIServer -Confirm:$false
                 Write-Host "If the upgrade failed ABORT using CTRL-C, or if you are ready to move on to next host"
                 pause
