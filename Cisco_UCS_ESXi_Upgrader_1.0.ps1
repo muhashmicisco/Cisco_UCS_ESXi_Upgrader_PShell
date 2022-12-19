@@ -26,7 +26,7 @@ as a datastore using PowerCLI after connecting to the host (can be added to the 
 New-Datastore -Nfs -Name nfs01 -Path /nfs01 -NfsHost <IP of PC running NFS>
 
 PLEASE NOTE:
-INCREASE THE START-SLEEP TIMER (60s DEFAULT) IF YOU HAVE MANY VMs TO TURN OFF, OTHERWISE MAINT. MODE WILL NOT TURN ON.
+INCREASE THE START-SLEEP TIMER (30s DEFAULT) IF YOU HAVE MANY VMs TO TURN OFF, OTHERWISE MAINT. MODE WILL NOT TURN ON.
 POST UPGRADE REBOOT EACH HOST WILL REMAIN IN MAINTANENCE MODE UNIT YOU TURN IT OFF.
 LASTLY MAKE SURE THE HostList.csv HAS CORRECT IP & CREDENTIALS !!!!
 
@@ -48,21 +48,21 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 Connect-VIServer -Server $IP -Protocol https -User $Username -Password $Pswd
               
                 # Shutdown VMs
-                Write-Host "Shutting down VMs, waiting 60s."
+                $poweredonvmcount = (get-vm | where {$_.powerstate -eq 'PoweredOn'}).count
+                Write-Host "Shutting down"$poweredonvmcount" VMs, waiting 30s."
                 $vm = Get-VM
                 $vm | Where {($_.Guest.State -eq "Running") -AND ($_.powerstate -eq ‘PoweredOn’)} | Shutdown-VMGuest -Confirm:$false
                 $vm | Where {($_.Guest.State -eq "NotRunning") -AND ($_.powerstate -eq ‘PoweredOn’)} | Stop-VM -Confirm:$false 
-                Start-Sleep 60
+                Start-Sleep 30
                                 
                 # Turn on Maint. Mode
                 Write-Host "Turning on Maintance Mode."
-                $poweredonvmcount = (get-vm | where {$_.powerstate -eq 'PoweredOn'}).count
                 if($poweredonvmcount -eq 0) {
                     set-vmhost -state Maintenance
                     Start-Sleep 5
                     }        
                 else {
-                    Write-Host "Error! Maintance Mode failed to activate. Turn ON manually via UI and only then"
+                    Write-Host "Error!"$poweredonvmcount" VMs are still Powered On. Maintance Mode failed to activate. Turn ON manually via UI and only then"
                     pause
                     }
                 
@@ -82,6 +82,6 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 Write-Host "If the upgrade failed ABORT using CTRL-C, or if you are ready to continue with next host"
                 pause
 
-    }
+    }  Out-File log.txt -Append
 
 #End of Script
