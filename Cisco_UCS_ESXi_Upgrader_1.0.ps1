@@ -51,11 +51,11 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 # Shutdown VMs
                 $poweredonvmcount = 0
                 $poweredonvmcount = (get-vm | where {$_.powerstate -eq 'PoweredOn'}).count
-                Write-Host "Shutting down"$poweredonvmcount" VMs, waiting 30s."
+                Write-Host "Shutting down"$poweredonvmcount" VMs, waiting 60s."
                 $vm = Get-VM
                 $vm | Where {($_.Guest.State -eq "Running") -AND ($_.powerstate -eq ‘PoweredOn’)} | Shutdown-VMGuest -Confirm:$false
                 $vm | Where {($_.Guest.State -eq "NotRunning") -AND ($_.powerstate -eq ‘PoweredOn’)} | Stop-VM -Confirm:$false 
-                Start-Sleep 30
+                Start-Sleep 60
                                 
                 # Turn on Maint. Mode
                 Write-Host "Turning on Maintance Mode."
