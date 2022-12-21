@@ -33,3 +33,6 @@ Good Luck!<br>
 <br>
 Sample Output from PowerShell Console:<br>
 ![image](https://user-images.githubusercontent.com/85717393/209022229-5c7e32d6-8e66-45c5-bd4f-733fdaf4ffa0.png)
+
+Sample Output from Log file:
+![image](https://user-images.githubusercontent.com/85717393/209022299-ade896bb-e5ee-46f9-b281-f6636211a53a.png)
