@@ -25,11 +25,11 @@ as a datastore using PowerCLI after connecting to the host (can be added to the 
 New-Datastore -Nfs -Name nfs01 -Path /nfs01 -NfsHost [IP of PC running NFS]<br>
 <br>
 PLEASE NOTE:<br>
-INCREASE THE START-SLEEP TIMER (30s DEFAULT) IF YOU HAVE MANY VMs TO TURN OFF, OTHERWISE MAINT. MODE WILL NOT TURN ON.<br>
+INCREASE THE START-SLEEP TIMER (60s DEFAULT) IF YOU HAVE MANY VMs TO TURN OFF, OTHERWISE MAINT. MODE WILL NOT TURN ON.<br>
 POST UPGRADE REBOOT, EACH HOST WILL REMAIN IN MAINTANENCE MODE UNIT YOU TURN IT OFF.<br>
 LASTLY MAKE SURE THE CSV HAS CORRECT IPs & CREDENTIALS !!!!<br>
 <br>
 Good Luck!<br>
 <br>
 Sample Output from PowerShell Console:<br>
-![image](https://user-images.githubusercontent.com/85717393/208201332-7173f7d0-2362-4059-8db2-10bf58bff565.png)
+![image](https://user-images.githubusercontent.com/85717393/209012541-7dbecbf2-dcfc-45e7-ae7b-0747bdf47902.png)
