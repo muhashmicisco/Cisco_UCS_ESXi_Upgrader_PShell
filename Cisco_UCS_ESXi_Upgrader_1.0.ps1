@@ -63,6 +63,7 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                     $vm | Where {($_.Guest.State -eq "Running") -AND ($_.powerstate -eq ‘PoweredOn’)} | Shutdown-VMGuest -Confirm:$false
                     $vm | Where {($_.Guest.State -eq "NotRunning") -AND ($_.powerstate -eq ‘PoweredOn’)} | Stop-VM -Confirm:$false 
                     Start-Sleep 60
+                    $poweredonvmcount = (get-vm | where {$_.powerstate -eq 'PoweredOn'}).count
                     if($poweredonvmcount -eq 0) {
                         Write-Host "Turning on Maintance Mode."
                         set-vmhost -state Maintenance
