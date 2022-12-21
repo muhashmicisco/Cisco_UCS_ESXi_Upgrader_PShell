@@ -86,7 +86,7 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 $esxcli = Get-EsxCli -V2
                 $arguments = $esxcli.software.profile.install.CreateArgs()
                 $arguments.depot = "/vmfs/volumes/Common_Datastore/VMWare/VMware-ESXi-7.0.3d-19482537-Custom-Cisco-4.2.2-a-depot.zip"
-                #NoHardwareWarning is only supported for ESXi 6.7 onwards, remove/comment for 6.5 GA and prior source versions
+                #NoHardwareWarning is only supported for ESXi 6.7 onwards, remove/comment for 6.5 and prior source versions
                 $arguments.nohardwarewarning = $true
                 $arguments.profile = "Cisco-UCS-Addon-ESXi-70U3d-19482537_4.2.2-a"
                 $arguments.oktoremove = $true
