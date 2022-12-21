@@ -35,6 +35,9 @@ Good Luck!
 
 #Start of Script
 clear
+Write-Host "Use Powershell Command: Get-Content .\output_log.txt | Select-Object -Last 10"
+Write-Host "to monitor Output log in a seperate Powershell window."
+pause
 
 #Get Host Credentials
 $HostCount = 0
