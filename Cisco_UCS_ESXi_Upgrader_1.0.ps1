@@ -57,17 +57,33 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 $vm | Where {($_.Guest.State -eq "NotRunning") -AND ($_.powerstate -eq ‘PoweredOn’)} | Stop-VM -Confirm:$false 
                 Start-Sleep 60
                                 
-                # Turn on Maint. Mode
-                Write-Host "Turning on Maintance Mode."
+                # Shutdown VMs & turn of Maint. Mode
+                $poweredonvmcount = 0
+                $poweredonvmcount = (get-vm | where {$_.powerstate -eq 'PoweredOn'}).count
+                                             
                 if($poweredonvmcount -eq 0) {
+                    Write-Host "Turning on Maintance Mode."
                     set-vmhost -state Maintenance
                     Start-Sleep 5
                     }        
                 else {
-                    Write-Host "Error!"$poweredonvmcount" VMs are still Powered On. Turn OFF manually via UI and only then"
-                    pause
-                    set-vmhost -state Maintenance
-                    Start-Sleep 5
+                    Write-Host "Shutting down"$poweredonvmcount" VMs, and waiting 60s."
+                    $vm = Get-VM
+                    $vm | Where {($_.Guest.State -eq "Running") -AND ($_.powerstate -eq ‘PoweredOn’)} | Shutdown-VMGuest -Confirm:$false
+                    $vm | Where {($_.Guest.State -eq "NotRunning") -AND ($_.powerstate -eq ‘PoweredOn’)} | Stop-VM -Confirm:$false 
+                    Start-Sleep 60
+                    if($poweredonvmcount -eq 0) {
+                        Write-Host "Turning on Maintance Mode."
+                        set-vmhost -state Maintenance
+                        Start-Sleep 5
+                    }
+                    else { 
+                        Write-Host "Error!"$poweredonvmcount" VMs are still Powered On. Turn OFF manually via UI and only then"
+                        pause
+                        Write-Host "Re-trying Maintance Mode activation."
+                        set-vmhost -state Maintenance
+                        Start-Sleep 5
+                        }
                     }
                 
                 # Run Upggrade Command
