@@ -48,16 +48,7 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 Write-Host "Connecting to ESXi Host:"$IP
                 Connect-VIServer -Server $IP -Protocol https -User $Username -Password $Pswd
               
-                # Shutdown VMs
-                $poweredonvmcount = 0
-                $poweredonvmcount = (get-vm | where {$_.powerstate -eq 'PoweredOn'}).count
-                Write-Host "Shutting down"$poweredonvmcount" VMs, waiting 60s."
-                $vm = Get-VM
-                $vm | Where {($_.Guest.State -eq "Running") -AND ($_.powerstate -eq ‘PoweredOn’)} | Shutdown-VMGuest -Confirm:$false
-                $vm | Where {($_.Guest.State -eq "NotRunning") -AND ($_.powerstate -eq ‘PoweredOn’)} | Stop-VM -Confirm:$false 
-                Start-Sleep 60
-                                
-                # Shutdown VMs & turn of Maint. Mode
+                 # Shutdown VMs & turn of Maint. Mode
                 $poweredonvmcount = 0
                 $poweredonvmcount = (get-vm | where {$_.powerstate -eq 'PoweredOn'}).count
                                              
