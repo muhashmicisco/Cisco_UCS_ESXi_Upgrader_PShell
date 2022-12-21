@@ -64,8 +64,10 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                     Start-Sleep 5
                     }        
                 else {
-                    Write-Host "Error!"$poweredonvmcount" VMs are still Powered On. Turn ON Maintance Mode manually via UI and only then"
+                    Write-Host "Error!"$poweredonvmcount" VMs are still Powered On. Turn OFF manually via UI and only then"
                     pause
+                    set-vmhost -state Maintenance
+                    Start-Sleep 5
                     }
                 
                 # Run Upggrade Command
