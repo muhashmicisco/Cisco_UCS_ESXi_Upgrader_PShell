@@ -93,7 +93,7 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 $esxcli.software.profile.install.Invoke($arguments)
                 
                 # Reboot, disconnect session and move on to next Host
-                Write-Host "Upgrade attempted, if there are errors ABORT using CTRL-C OR to REBOOT this server and move on to the next"
+                Write-Host "Upgrade Complete, if there are errors ABORT using CTRL-C OR to REBOOT this server and move on to the next"
                 pause
                 Restart-VMHost -Confirm:$false | Disconnect-VIServer -Confirm:$false
                 $HostCount++
