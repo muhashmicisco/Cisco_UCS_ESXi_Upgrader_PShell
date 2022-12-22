@@ -32,7 +32,7 @@ LASTLY MAKE SURE THE CSV HAS CORRECT IPs & CREDENTIALS !!!!<br>
 Good Luck!<br>
 <br>
 Sample Output from PowerShell Console:<br>
-![image](https://user-images.githubusercontent.com/85717393/209022229-5c7e32d6-8e66-45c5-bd4f-733fdaf4ffa0.png)
+![image](https://user-images.githubusercontent.com/85717393/209218291-2c9069e3-e7f9-4dd9-ae96-e36dc0c5d869.png)
 
 Sample Output from Log file:
 ![image](https://user-images.githubusercontent.com/85717393/209022299-ade896bb-e5ee-46f9-b281-f6636211a53a.png)
