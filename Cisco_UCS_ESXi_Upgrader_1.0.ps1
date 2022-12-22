@@ -35,8 +35,8 @@ Good Luck!
 
 #Start of Script
 clear
-Write-Host "Use Powershell Command: Get-Content .\output_log.txt | Select-Object -Last 10"
-Write-Host "to monitor Output log in a seperate Powershell window."
+Write-Host "Starting Upgrade. Ensure a new log window has opened.`n" | Out-File output_log.txt
+invoke-expression 'cmd /c start powershell -Command { Get-Content .\output_log.txt -wait }'
 pause
 
 #Get Host Credentials
@@ -98,9 +98,8 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 Restart-VMHost -Confirm:$false | Disconnect-VIServer -Confirm:$false
                 $HostCount++
                 
-    } | Out-File output_log.txt
+    } | Out-File output_log.txt -append
 
-Write-Host "Refer to output_log.txt for command output, errors are shown on screen."
 Write-Host $HostCount" Hosts Upgraded Successfully. Exiting Script."
 $HostCount = 0
 
