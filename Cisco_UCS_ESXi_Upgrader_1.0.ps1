@@ -36,7 +36,7 @@ Good Luck!
 #Start of Script
 clear
 Write-Host "Starting Upgrade. Ensure a new log window has opened.`n" | Out-File output_log.txt
-invoke-expression 'cmd /c start powershell -Command { Get-Content .\output_log.txt -wait }'
+start-process powershell -ArgumentList "Get-Content .\output_log.txt -wait" 
 pause
 
 #Get Host Credentials
