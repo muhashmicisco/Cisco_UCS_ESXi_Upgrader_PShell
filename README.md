@@ -6,7 +6,7 @@ You are fully responsible for your use of this script AND am not liable for dama
 <br>
 PowerCLI First Time Setup (Install):<br>
 Install-Module VMware.PowerCLI -Scope CurrentUser -AllowClobber<br>
-Set-PowerCLIConfiguration -Scope User -ParticipateInCEIP $true<br>
+Set-PowerCLIConfiguration -Scope User -ParticipateInCEIP $false<br>
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false<br>
 <br>
 Prep:<br>
