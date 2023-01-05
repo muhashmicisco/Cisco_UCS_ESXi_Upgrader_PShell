@@ -97,7 +97,9 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
                 pause
                 Restart-VMHost -Confirm:$false | Disconnect-VIServer -Confirm:$false
                 $HostCount++
-                
+                Write-Host
+                Write-Host
+
     } | Out-File output_log.txt -append
 
 Write-Host $HostCount" Hosts Upgraded Successfully. Exiting Script."
