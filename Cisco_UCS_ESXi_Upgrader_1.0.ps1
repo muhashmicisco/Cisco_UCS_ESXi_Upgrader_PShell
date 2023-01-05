@@ -8,7 +8,7 @@ Offline Cisco Custom ESXi Upgrade PowerCLI Script for UCS Automation (no vCenter
 
 PowerCLI First Time Setup (Install):
 Install-Module VMware.PowerCLI -Scope CurrentUser -AllowClobber
-Set-PowerCLIConfiguration -Scope User -ParticipateInCEIP $true
+Set-PowerCLIConfiguration -Scope User -ParticipateInCEIP $false
 Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false
 
 Prep:
