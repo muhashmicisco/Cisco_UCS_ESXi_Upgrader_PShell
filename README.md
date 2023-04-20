@@ -21,9 +21,9 @@ vSphere 7.0U3: https://customerconnect.vmware.com/en/downloads/details?downloadG
 <br>
 Remember to update the Profile name in the script which can be found using:<br>
 <b>Host#>esxcli software sources profile list --depot="/vmfs/volumes/VMWare/VMware-ESXi-6.7.0-17700523-Custom-Cisco-6.7.3.1-Bundle.zip"</b><br>
-Name                                                    Vendor  Acceptance Level<br>
+<pre>Name                                                    Vendor  Acceptance Level<br>
 ------------------------------------------------------  ------  ----------------<br>
-VMware-ESXi-6.7.0-17700523-Custom-Cisco-6.7.3.1-Bundle  CISCO   PartnerSupported<br>
+VMware-ESXi-6.7.0-17700523-Custom-Cisco-6.7.3.1-Bundle  CISCO   PartnerSupported</pre><br>
 <br>
 Important Step: Upload .zip to a common DataStore accessible by all hosts OR map a local folder (using NFS) <br>
 as a datastore using PowerCLI after connecting to the host (can be added to the script above the esxcli section):<br>
