@@ -104,5 +104,5 @@ $Hosts = import-csv -Path ".\HostList.csv" | ForEach-Object {
 
 Write-Host $HostCount" Hosts Upgraded Successfully. Exiting Script."
 $HostCount = 0
-
+pause
 #End of Script
